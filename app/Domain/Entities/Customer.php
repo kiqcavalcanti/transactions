@@ -29,27 +29,6 @@ class Customer extends BaseModel
     protected $partialFilters = [];
     protected array $allowedScopes = [];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
-     */
-    public function findWithQueryBuilder()
-    {
-        $qb = $this->getQueryBuilder();
-
-        return $this->applyRequiredCondition($qb)
-            ->get();
-    }
-
-    /**
-     * @return Model|object|QueryBuilder|null
-     */
-    public function findOneWithQueryBuilder()
-    {
-        $qb = $this->getQueryBuilder();
-
-        return $this->applyRequiredCondition($qb)
-            ->first();
-    }
 
     public function applyRequiredCondition($qb)
     {

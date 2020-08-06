@@ -61,34 +61,9 @@ class User extends BaseModel implements
 
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
-     */
-    public function findWithQueryBuilder()
-    {
-        $qb = $this->getQueryBuilder();
-
-        return $this->applyRequiredCondition($qb)
-            ->get();
-    }
-
-    /**
-     * @return Model|object|QueryBuilder|null
-     */
-    public function findOneWithQueryBuilder()
-    {
-        $qb = $this->getQueryBuilder();
-
-        return $this->applyRequiredCondition($qb)
-            ->first();
-    }
-
-    public function applyRequiredCondition($qb)
-    {
-        return $qb->where('id', Auth::user()->id);
+        if (!blank($value)) {
+            $this->attributes['password'] = bcrypt($value);
+        }
     }
 
 }

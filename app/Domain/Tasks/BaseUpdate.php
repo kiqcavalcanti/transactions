@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Domain\Tasks;
 
-
 use App\Domain\Entities\BaseModel;
+use Illuminate\Support\Arr;
 
 class BaseUpdate
 {
@@ -15,8 +14,10 @@ class BaseUpdate
      */
     public static function execute(BaseModel $entity, $attributes)
     {
+        $attributes = Arr::only($attributes, $entity->getFillable());
+
         foreach ($attributes as $key => $value) {
-            $entity[$key] = $value;
+            $entity->$key = $value;
         }
 
         $entity->save();

@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use App\Domain\Entities\User;
-use App\Policies\UserPolicy;
+use App\Domain\Entities\Customer;
+use App\Domain\Entities\Transaction;
+use App\Domain\Policies\UserPolicy;
+use App\Domain\Policies\TransactionPolicy;
+use App\Domain\Policies\CustomerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,7 +20,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
-        User::class => UserPolicy::class
+        User::class => UserPolicy::class,
+        Transaction::class => TransactionPolicy::class,
+        Customer::class => CustomerPolicy::class
     ];
 
     /**

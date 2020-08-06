@@ -129,7 +129,12 @@ class BaseModel extends Model
             $queryBuilder = $queryBuilder->skip((int)$offset);
         }
 
-        return $queryBuilder;
+        return $this->applyRequiredCondition($queryBuilder);
+    }
+
+    public function applyRequiredCondition($qb)
+    {
+        return $qb;
     }
 
 }

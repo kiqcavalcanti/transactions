@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Domain\Policies;
 
 use App\Domain\Entities\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -33,11 +33,11 @@ class UserPolicy
 
     public function delete(User $authUser, User $user)
     {
-        return $authUser->id === $user->id || $authUser->is_admin;
+        return $authUser->is_admin;
     }
 
     public function restore(User $authUser, User $user)
     {
-        return $authUser->id === $user->id || $authUser->is_admin;
+        return $authUser->is_admin;
     }
 }

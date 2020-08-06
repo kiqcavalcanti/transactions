@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Entities\BaseModel;
 use App\Services\BaseService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -55,22 +56,51 @@ class BaseController extends Controller
     }
 
     /**
-     * @param mixed $id
-     * @return JsonResponse
+     * @param BaseModel $model
+     * @return mixed
      */
-    public function baseShow($id)
+    public function baseShow(BaseModel $model)
     {
-        return $this->response($this->getService()->find($id));
+        return $this->response($model);
     }
 
     /**
      * @param Request $request
      * @return mixed
+     */
+    public function baseCreate(Request $request)
+    {
+        return $this->response($this->getService()->create($request->all()));
+    }
+
+    /**
+     * @param BaseModel $model
+     * @param Request $request
+     * @return mixed
+     */
+    public function baseUpdate(BaseModel $model, Request $request)
+    {
+        return $this->response($this->getService()->update($model, $request->all()));
+    }
+
+    /**
+     * @param BaseModel $model
+     * @return mixed
+     */
+    public function baseRestore(BaseModel $model)
+    {
+        return $this->response($this->getService()->restore($model));
+    }
+
+
+    /**
+     * @param BaseModel $model
+     * @return mixed
      * @throws \Exception
      */
-    public function baseDestroy($id, Request $request)
+    public function baseDestroy(BaseModel $model)
     {
-        return $this->getService()->delete($id)
+        return $this->getService()->delete($model)
             ? $this->response(null, 204)
             : $this->response(null, 422);
     }
