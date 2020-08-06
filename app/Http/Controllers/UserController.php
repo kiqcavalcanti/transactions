@@ -27,6 +27,11 @@ class UserController extends BaseController
         parent::__construct($service, $transformer);
     }
 
+    public function show(User $user)
+    {
+        return parent::baseShow($user);
+    }
+
     /**
      * @param UserStoreRequest $request
      * @return mixed

@@ -1,13 +1,6 @@
 <?php
 
-
 namespace App\Domain\Entities;
-
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class Customer extends BaseModel
 {
@@ -21,6 +14,16 @@ class Customer extends BaseModel
         'updated_at' => 'datetime',
     ];
 
+    protected $fillable = [
+        'primary_registry',
+        'primary_registry_type_id',
+
+        'balance',
+        'primary_email',
+        'primary_mobile_phone',
+        'name'
+    ];
+
     protected $allowedIncludes = [];
     protected $allowedFilters = [];
     protected $allowedFields = [];
@@ -29,10 +32,9 @@ class Customer extends BaseModel
     protected $partialFilters = [];
     protected array $allowedScopes = [];
 
-
-    public function applyRequiredCondition($qb)
+    public function user()
     {
-        return $qb->where('id', Auth::user()->customer_id);
+        return $this->belongsTo(User::class);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Entities\BaseModel;
 use App\Domain\Entities\Customer;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
@@ -15,6 +16,11 @@ class CustomerController extends BaseController
         $this->authorizeResource(Customer::class, 'customer');
 
         parent::__construct($service, $transformer);
+    }
+
+    public function show(Customer $customer)
+    {
+        return parent::baseShow($customer);
     }
 
     /**

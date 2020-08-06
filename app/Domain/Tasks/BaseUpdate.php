@@ -12,7 +12,7 @@ class BaseUpdate
      * @param $attributes
      * @return BaseModel
      */
-    public static function execute(BaseModel $entity, $attributes)
+    public static function execute(BaseModel $entity, array $attributes = [])
     {
         $attributes = Arr::only($attributes, $entity->getFillable());
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\isValidEmail;
+use App\Domain\Rules\IsUniqueEmail;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserStoreRequest extends FormRequest
@@ -25,7 +25,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'min:10', 'max:255', 'email', new isValidEmail()],
+            'email' => ['required', 'min:10', 'max:255', 'email', new IsUniqueEmail()],
             'name' => 'required|string|max:255|min:10',
             'password' => 'string|required|min:6'
         ];

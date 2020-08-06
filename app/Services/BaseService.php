@@ -73,7 +73,7 @@ class BaseService
         return BaseCreate::execute($this->entity, $attributes);
     }
 
-    public function update(BaseModel $model, array $attributes)
+    public function update(BaseModel $model, array $attributes = [])
     {
         return BaseUpdate::execute($model, $attributes);
     }

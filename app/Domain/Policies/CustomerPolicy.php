@@ -21,7 +21,7 @@ class CustomerPolicy
         return $user->customer_id === $customer->id || $user->is_admin;
     }
 
-    public function create(User $user, Customer $customer)
+    public function create(User $user)
     {
         return blank($user->customer_id) || $user->is_admin;
     }

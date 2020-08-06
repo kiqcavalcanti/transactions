@@ -6,14 +6,10 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use \Illuminate\Auth\Authenticatable;
 use \Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class User extends BaseModel implements
     AuthenticatableContract,
@@ -64,6 +60,11 @@ class User extends BaseModel implements
         if (!blank($value)) {
             $this->attributes['password'] = bcrypt($value);
         }
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 
 }

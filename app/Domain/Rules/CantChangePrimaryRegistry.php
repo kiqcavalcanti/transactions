@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Rules;
+namespace App\Domain\Rules;
 
-use App\Domain\Entities\User;
+use App\Domain\Entities\Customer;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 
-class isValidEmail implements Rule
+class CantChangePrimaryRegistry implements Rule
 {
     /**
      * Create a new rule instance.
@@ -27,17 +26,20 @@ class isValidEmail implements Rule
      */
     public function passes($attribute, $value)
     {
-        $user = User::query()->where('email', $value)->first();
-
-        if(blank($user)) {
+        if(blank($value)) {
             return true;
         }
 
-        if(optional(Auth::user())->id === $user->id) {
+        $customer = Customer::where('primary_registry', $value)->first();
+
+        $customerToUpdate = request()->route('customer');
+
+        if(optional($customer)->id === $customerToUpdate->id) {
             return true;
         }
 
         return false;
+
     }
 
     /**
@@ -47,6 +49,6 @@ class isValidEmail implements Rule
      */
     public function message()
     {
-        return 'Email já existe.';
+        return 'Não é permitido alteração de CPF/CNPJ';
     }
 }

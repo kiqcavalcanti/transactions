@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\isValidEmail;
+use App\Domain\Rules\IsUniqueEmail;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateRequest extends FormRequest
@@ -25,7 +25,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['min:10', 'max:255', 'email', new isValidEmail()],
+            'email' => ['min:10', 'max:255', 'email', new IsUniqueEmail()],
             'name' => 'string|max:255|min:10',
             'password' => 'string|min:6'
         ];
