@@ -2,9 +2,10 @@
 
 namespace App\Domain\Tasks\User;
 
+use App\Domain\Entities\BaseModel;
 use App\Domain\Entities\Customer;
 use App\Domain\Entities\User;
-use App\Services\UserService;
+use App\Domain\Tasks\BaseUpdate;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateUserFromNewCustomer
@@ -12,7 +13,7 @@ class UpdateUserFromNewCustomer
     /**
      * @param Customer $customer
      * @param string|null $userId
-     * @return User|null
+     * @return User|null|BaseModel
      */
     public static function execute(Customer $customer, ?string $userId = null): ?User
     {
@@ -28,6 +29,6 @@ class UpdateUserFromNewCustomer
 
         $user->customer_id = $customer->id;
 
-        return app(UserService::class)->update($user);
+        return BaseUpdate::execute($user);
     }
 }

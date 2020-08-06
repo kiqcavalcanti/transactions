@@ -42,7 +42,7 @@ class CustomerStoreRequest extends FormRequest
                 'in:' . TypeEnum::PRIMARY_REGISTRY_PF . ',' . TypeEnum::PRIMARY_REGISTRY_PJ,
                 'required'
             ],
-            'name' => 'required|string|max:255|min:10',
+            'name' => 'required|string|max:255|min:3',
         ];
     }
 
@@ -56,7 +56,8 @@ class CustomerStoreRequest extends FormRequest
         return [
             'primary_registry.min' => 'O CPF/CNPJ deve ter no mínimo 11 caracteres',
             'primary_registry.max' => 'O CPF/CNPJ deve ter no maximo 14 caracteres',
-            'name.min' => 'Nome é deve ter no mínimo 10 caracteres',
+            'primary_registry.required' => 'O CPF/CNPJ é obrigatório!',
+            'name.min' => 'Nome é deve ter no mínimo 3 caracteres',
             'name.max' => 'Nome é deve ter no maximo 255 caracteres',
             'name.string' => 'Nome deve ser um texto',
             'name.required' => 'Nome é obrigatório!',

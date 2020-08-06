@@ -11,7 +11,11 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         return [
-            'id' => $user->id
+            'id' => $user->id,
+            'active' => true,
+            'created_at' => $user->created_at,
+            'customer_id' => $user->customer_id,
+            'email' => $user->email,
         ];
     }
 }

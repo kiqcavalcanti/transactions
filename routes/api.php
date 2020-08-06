@@ -26,7 +26,7 @@ Route::middleware('auth:api')->group(function (Router $route) {
     $route->delete('/customers/{customer}', 'CustomerController@baseDestroy');
     $route->post('/customers', 'CustomerController@store');
 
-//    $route->post('/transactions', 'TransactionController@store');
+    $route->post('/transactions', 'TransactionController@store');
 
 
 });

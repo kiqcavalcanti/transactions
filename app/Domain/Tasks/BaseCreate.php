@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 class BaseCreate
 {
-    public static function execute(BaseModel $entity, array $attributes)
+    public static function execute(BaseModel $entity, array $attributes = [])
     {
         $attributes = Arr::only($attributes, $entity->getFillable());
 

@@ -62,4 +62,15 @@ class Transaction extends BaseModel
         });
     }
 
+    public function payer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function payee()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+
 }

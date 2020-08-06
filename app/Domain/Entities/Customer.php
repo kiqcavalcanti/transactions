@@ -17,10 +17,6 @@ class Customer extends BaseModel
     protected $fillable = [
         'primary_registry',
         'primary_registry_type_id',
-
-        'balance',
-        'primary_email',
-        'primary_mobile_phone',
         'name'
     ];
 

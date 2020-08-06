@@ -19,8 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->uuid('payee_customer_id');
             $table->uuid('payer_customer_id');
             $table->uuid('status_type_id');
-            $table->uuid('payment_method_type_id');
-            $table->uuid('service_type_id');
+//            $table->uuid('payment_method_type_id');
+//            $table->uuid('service_type_id');
             $table->timestamps();
             $table->boolean('active');
         });
