@@ -27,8 +27,8 @@ Route::middleware('auth:api')->group(function (Router $route) {
     $route->post('/customers', 'CustomerController@store');
 
     $route->post('/transactions', 'TransactionController@store');
-
-
+    $route->get('/transactions/{transaction}', 'TransactionController@show');
+    $route->get('/transactions', 'TransactionController@index');
 });
 
 Route::middleware('api')->group(function (Router $route) {

@@ -1,14 +1,21 @@
 <?php
 
-
 namespace App\Http\Transformers;
 
 use App\Domain\Entities\Customer;
 use App\Domain\Enums\TypeEnum;
 use League\Fractal\TransformerAbstract;
+use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\Primitive;
 
 class CustomerTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'user',
+        'primaryRegistryType',
+    ];
+
     public function transform(Customer $customer)
     {
         return [
@@ -21,7 +28,20 @@ class CustomerTransformer extends TransformerAbstract
 
     /**
      * @param Customer $customer
-     * @return \League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
+     * @return Item|NullResource
+     */
+    public function includeUser(Customer $customer)
+    {
+        if(blank($customer->user)) {
+            return $this->null();
+        }
+
+        return $this->item($customer->user, new  UserTransformer, 'User');
+    }
+
+    /**
+     * @param Customer $customer
+     * @return NullResource|Primitive
      */
     protected function includePrimaryRegistryType(Customer $customer)
     {

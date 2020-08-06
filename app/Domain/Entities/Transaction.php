@@ -22,7 +22,6 @@ class Transaction extends BaseModel
         'updated_at' => 'datetime',
     ];
 
-    protected $allowedIncludes = [];
     protected $allowedFilters = [];
     protected $allowedFields = [];
     protected $allowedAppends = [];
@@ -64,12 +63,12 @@ class Transaction extends BaseModel
 
     public function payer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class, 'payer_customer_id', 'id');
     }
 
     public function payee()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class, 'payee_customer_id', 'id');
     }
 
 

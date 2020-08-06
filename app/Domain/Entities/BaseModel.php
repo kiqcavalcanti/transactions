@@ -111,7 +111,7 @@ class BaseModel extends Model
     {
         $queryBuilder = QueryBuilder::for(get_class($this))
             ->allowedFields($this->allowedFields)
-            ->allowedIncludes($this->allowedIncludes)
+//            ->allowedIncludes($this->allowedIncludes)
             ->allowedAppends($this->allowedAppends)
             ->allowedFilters($this->allowedFilters)
             ->allowedSorts($this->allowedSorts)
