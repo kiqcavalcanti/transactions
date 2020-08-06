@@ -4,6 +4,11 @@
 namespace App\Domain\Entities;
 
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
+
 class Customer extends BaseModel
 {
     /**
@@ -23,4 +28,32 @@ class Customer extends BaseModel
     protected $exactFilters = [];
     protected $partialFilters = [];
     protected array $allowedScopes = [];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
+     */
+    public function findWithQueryBuilder()
+    {
+        $qb = $this->getQueryBuilder();
+
+        return $this->applyRequiredCondition($qb)
+            ->get();
+    }
+
+    /**
+     * @return Model|object|QueryBuilder|null
+     */
+    public function findOneWithQueryBuilder()
+    {
+        $qb = $this->getQueryBuilder();
+
+        return $this->applyRequiredCondition($qb)
+            ->first();
+    }
+
+    public function applyRequiredCondition($qb)
+    {
+        return $qb->where('id', Auth::user()->customer_id);
+    }
+
 }

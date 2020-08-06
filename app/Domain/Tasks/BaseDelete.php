@@ -15,7 +15,7 @@ class BaseDelete
      */
     public static function execute(BaseModel $entity)
     {
-        $entity->delete();
+        $entity->active = false;
 
         return $entity;
     }

@@ -3,6 +3,7 @@
 namespace App\Domain\Tasks;
 
 use App\Domain\Entities\BaseModel;
+use Ramsey\Uuid\Uuid;
 
 class BaseCreate
 {
@@ -11,6 +12,9 @@ class BaseCreate
         foreach ($attributes as $key => $value) {
             $entity[$key] = $value;
         }
+
+        $entity->active = true;
+        $entity->id = Uuid::uuid4()->toString();
 
         $entity->save();
 

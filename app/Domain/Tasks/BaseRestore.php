@@ -8,18 +8,12 @@ use App\Domain\Entities\BaseModel;
 class BaseRestore
 {
     /**
-     * @param string $entityClassName
-     * @param $id
+     * @param BaseModel $entity
      * @return BaseModel
      */
-    public static function execute(string $entityClassName, $id)
+    public static function execute(BaseModel $entity)
     {
-        /**
-         * @var BaseModel $entity
-         */
-        $entity = $entityClassName::find($id);
-
-        $entity->restore();
+        $entity->active = true;
 
         return $entity;
     }

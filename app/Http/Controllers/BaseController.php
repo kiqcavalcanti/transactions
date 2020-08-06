@@ -58,7 +58,7 @@ class BaseController extends Controller
      * @param mixed $id
      * @return JsonResponse
      */
-    public function show($id)
+    public function baseShow($id)
     {
         return $this->response($this->getService()->find($id));
     }
@@ -68,7 +68,7 @@ class BaseController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function destroy($id, Request $request)
+    public function baseDestroy($id, Request $request)
     {
         return $this->getService()->delete($id)
             ? $this->response(null, 204)
@@ -83,7 +83,7 @@ class BaseController extends Controller
      */
     public function response($data, ?int $defaultHttpCode = 200, array $headers = [])
     {
-        $transformer = app($this->getService()->getTransformerClassName());
+        $transformer = $this->getTransformer();
 
         return fractal($data, $transformer)
             ->serializeWith(new JsonApiSerializer())
@@ -99,7 +99,7 @@ class BaseController extends Controller
      */
     public function paginate(LengthAwarePaginator $data, ?int $defaultHttpCode = 200, array $headers = [])
     {
-        $transformer = app($this->getService()->getTransformerClassName());
+        $transformer = app($this->getTransformer());
 
         return fractal($data, $transformer)
             ->serializeWith(new JsonApiSerializer())
@@ -174,6 +174,11 @@ class BaseController extends Controller
         $httpCode = $sorted->keys()->first();
 
         return $httpCode ?? 422;
+    }
+
+    public function getTransformer()
+    {
+        return $this->transformer;
     }
 
 }

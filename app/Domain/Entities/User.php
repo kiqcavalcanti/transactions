@@ -6,16 +6,21 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use \Illuminate\Auth\Authenticatable;
 use \Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\HasApiTokens;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class User extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
+    use HasApiTokens, Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -53,4 +58,37 @@ class User extends BaseModel implements
     protected $exactFilters = [];
     protected $partialFilters = [];
     protected array $allowedScopes = [];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
+     */
+    public function findWithQueryBuilder()
+    {
+        $qb = $this->getQueryBuilder();
+
+        return $this->applyRequiredCondition($qb)
+            ->get();
+    }
+
+    /**
+     * @return Model|object|QueryBuilder|null
+     */
+    public function findOneWithQueryBuilder()
+    {
+        $qb = $this->getQueryBuilder();
+
+        return $this->applyRequiredCondition($qb)
+            ->first();
+    }
+
+    public function applyRequiredCondition($qb)
+    {
+        return $qb->where('id', Auth::user()->id);
+    }
+
 }

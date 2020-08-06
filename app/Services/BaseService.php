@@ -73,33 +73,28 @@ class BaseService
         return BaseCreate::execute($this->entity, $attributes);
     }
 
-    public function update(int $id, array $attributes)
+    public function update(BaseModel $model, array $attributes)
     {
-        $entity = $this->find($id);
-
-        return BaseUpdate::execute($entity, $attributes);
+        return BaseUpdate::execute($model, $attributes);
     }
 
     /**
-     * @param $id
+     * @param BaseModel $model
      * @return BaseModel
      * @throws \Exception
      */
-    public function delete(int $id)
+    public function delete(BaseModel $model)
     {
-        $entity = $this->find($id);
-
-        return BaseDelete::execute($entity);
+        return BaseDelete::execute($model);
     }
 
     /**
-     * @param $id
+     * @param $model
      * @return BaseModel
      */
-    public function restore(int $id)
+    public function restore($model)
     {
-        $entity = $this->find($id);
-        return BaseRestore::execute($entity, $id);
+        return BaseRestore::execute($model);
     }
 
 
