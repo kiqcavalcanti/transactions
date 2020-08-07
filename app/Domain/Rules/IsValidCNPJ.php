@@ -28,7 +28,7 @@ class IsValidCNPJ implements Rule
     public function passes($attribute, $value)
     {
         if(blank($value)) {
-            true;
+            return true;
         }
 
         if(blank(request()->get('primary_registry_type_id'))) {
