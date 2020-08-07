@@ -35,11 +35,11 @@ class IsValidCNPJ implements Rule
             return true;
         }
 
-        if(request()->get('primary_registry_type_id') !== TypeEnum::PRIMARY_REGISTRY_PJ) {
+        if(request()->get('primary_registry_type_id') === TypeEnum::PRIMARY_REGISTRY_PF) {
             return true;
         }
 
-        return isValidCPF($value);
+        return isValidCNPJ($value);
     }
 
     /**

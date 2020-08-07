@@ -35,8 +35,8 @@ class IsValidCPF implements Rule
             return true;
         }
 
-        if(request()->get('primary_registry_type_id') !== TypeEnum::PRIMARY_REGISTRY_PF) {
-            return false;
+        if(request()->get('primary_registry_type_id') === TypeEnum::PRIMARY_REGISTRY_PJ) {
+            return true;
         }
 
         return isValidCPF($value);
